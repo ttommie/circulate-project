@@ -10,6 +10,9 @@ void Setup(const HMODULE instance)
 {
 	try
 	{
+		mem::Setup();
+		interfaces::Setup();
+		netvars::Setup();
 		gui::Setup();
 		hooks::Setup();
 	}

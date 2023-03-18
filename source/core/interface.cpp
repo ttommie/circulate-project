@@ -11,6 +11,8 @@ void interfaces::Setup() noexcept
 	// Get interfaces
 	baseClient = GetInterface<IBaseClientDll>("client.dll", "VClient018");
 	entityList = GetInterface<IClientEntityList>("client.dll", "VClientEntityList003");
+	clientMode = **reinterpret_cast<IClientModeShared***>((*reinterpret_cast<unsigned int**>(baseClient))[10] + 5);
+	engine = GetInterface<IVEngineClient>("engine.dll", "VEngineClient014");
 }
 
 // Help: https://www.youtube.com/watch?v=C0wGdwnaArA

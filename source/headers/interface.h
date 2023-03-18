@@ -1,8 +1,13 @@
 #pragma once
 
+#include "globals.h"
+
 // interfaces
 #include "sdk/IBaseClientDll.h"
 #include "sdk/IClientEntityList.h"
+#include "sdk/IClientModeShared.h"
+#include "sdk/IVEngineClient.h"
+#include "sdk/CUserCmd.h"
 
 namespace interfaces
 {
@@ -16,7 +21,6 @@ namespace interfaces
 	// Interface pointers
 	inline IBaseClientDll* baseClient = nullptr;
 	inline IClientEntityList* entityList = nullptr;
-	//inline IVModelInfo* modelInfo = nullptr;
-	//inline IInputSystem* inputSystem = nullptr;
-
+	inline IClientModeShared* clientMode = nullptr;
+	inline IVEngineClient* engine = nullptr;
 }

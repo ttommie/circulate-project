@@ -44,46 +44,43 @@ public:
 		FL_UNBLOCKABLE_BY_PLAYER = (1 << 31)
 	};
 
-	enum EMoveType
-	{
-		MOVETYPE_NONE = 0,
-		MOVETYPE_ISOMETRIC,
-		MOVETYPE_WALK,
-		MOVETYPE_STEP,
-		MOVETYPE_FLY,
-		MOVETYPE_FLYGRAVITY,
-		MOVETYPE_VPHYSICS,
-		MOVETYPE_PUSH,
-		MOVETYPE_NOCLIP,
-		MOVETYPE_LADDER,
-		MOVETYPE_OBSERVER,
-		MOVETYPE_CUSTOM,
-		MOVETYPE_LAST = MOVETYPE_CUSTOM,
-		MOVETYPE_MAX_BITS = 4,
-		MAX_MOVETYPE
-	};
-
-	enum EWeaponType : int
-	{
-		WEAPONTYPE_KNIFE = 0,
-		WEAPONTYPE_PISTOL = 1,
-		WEAPONTYPE_SUBMACHINEGUN = 2,
-		WEAPONTYPE_RIFLE = 3,
-		WEAPONTYPE_SHOTGUN = 4,
-		WEAPONTYPE_SNIPER = 5,
-		WEAPONTYPE_MACHINEGUN = 6,
-		WEAPONTYPE_C4 = 7,
-		WEAPONTYPE_PLACEHOLDER = 8,
-		WEAPONTYPE_GRENADE = 9,
-		WEAPONTYPE_HEALTHSHOT = 11,
-		WEAPONTYPE_FISTS = 12,
-		WEAPONTYPE_BREACHCHARGE = 13,
-		WEAPONTYPE_BUMPMINE = 14,
-		WEAPONTYPE_TABLET = 15,
-		WEAPONTYPE_MELEE = 16
-	};
-
 	// Netvars
-	NETVAR(Weapons, "CBaseCombatCharacter->m_hMyWeapons", unsigned long[48])
+	NETVAR(GetFlags, "CBasePlayer->m_fFlags", std::int32_t);
 	NETVAR(ViewModel, "CBasePlayer->m_hViewModel[0]", unsigned long)
+	NETVAR(GetWeapons, "CBaseCombatCharacter->m_hMyWeapons", unsigned long[48])
+
+public:
+	constexpr CClientClass* GetClientClass() noexcept
+	{
+		return mem::Call<CClientClass*>(this + 0x8, 2);
+	}
+
+	constexpr bool IsAlive() noexcept
+	{
+		return mem::Call<bool>(this, 156);
+	}
+};
+
+class BaseCombatWeapon : public CEntity
+{
+public:
+	NETVAR(ViewModelIndex, "CBaseCombatWeapon->m_iViewModelIndex", int)
+	NETVAR(WorldModelIndex, "CBaseCombatWeapon->m_iWorldModelIndex", int)
+	NETVAR(WorldDroppedModelIndex, "CBaseCombatWeapon->m_iWorldDroppedModelIndex", int)
+	NETVAR(WeaponWorldModel, "CBaseCombatWeapon->m_hWeaponWorldModel", unsigned long)
+};
+
+class BaseAttributableItem : public BaseCombatWeapon
+{
+public:
+	NETVAR(GetModelIndex, "CBaseVewModel->m_nModelIndex", unsigned long)
+	NETVAR(GetAccountID, "CBaseAttributableItem->m_iAccountID", int)
+	NETVAR(GetItemDefinitionIndex, "CBaseAttributableItem->m_iItemDefinitionIndex", short)
+	NETVAR(GetItemIDHigh, "CBaseAttributableItem->m_iItemIDHigh", int)
+	NETVAR(GetEntityQuality, "CBaseAttributableItem->m_iEntityQuality", int)
+	NETVAR(GetCustomName, "CBaseAttributableItem->m_szCustomName", char[32])
+	NETVAR(GetFallbackPaintKit, "CBaseAttributableItem->m_nFallbackPaintKit", int)
+	NETVAR(GetFallbackSeed, "CBaseAttributableItem->m_nFallbackSeed", unsigned)
+	NETVAR(GetFallbackWear, "CBaseAttributableItem->m_flFallbackWear", float)
+	NETVAR(GetFallbackStatTrak, "CBaseAttributableItem->m_nFallbackStatTrak", unsigned)
 };
