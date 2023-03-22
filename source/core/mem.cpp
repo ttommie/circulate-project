@@ -1,9 +1,9 @@
 #define WIN32_LEAN_AND_MEAN
 
-#include "../headers/utility/mem.h"
-
 #include <Windows.h>
 #include <vector>
+
+#include "../headers/utility/mem.h"
 
 void mem::Setup() noexcept
 {

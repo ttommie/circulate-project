@@ -23,4 +23,6 @@ namespace interfaces
 	inline IClientEntityList* entityList = nullptr;
 	inline IClientModeShared* clientMode = nullptr;
 	inline IVEngineClient* engine = nullptr;
+
+	inline void* keyValuesSystem = nullptr;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "cvector.h"
+#include "../utility/vector.h"
 
 class CUserCmd
 {
@@ -38,8 +38,8 @@ public:
     void* vmt;
     std::int32_t commandNumber;
     std::int32_t tickCount;
-    //CVector viewAngles;
-    //CVector aimDirection;
+    CVector viewAngles;
+    CVector aimDirection;
     float forwardMove;
     float sideMove;
     float upMove;
@@ -51,6 +51,6 @@ public:
     short mouseDeltaX;
     short mouseDeltaY;
     bool hasBeenPredicted;
-    //CVector headAngles;
-    //CVector headOffset;
+    CVector headAngles;
+    CVector headOffset;
 };

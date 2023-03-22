@@ -1,15 +1,10 @@
+#include <stdexcept>
+
+#include "features/vars.h"
 #include "../headers/gui.h"
 #include "../../ext/imgui/imgui.h"
 #include "../../ext/imgui/imgui_impl_win32.h"
 #include "../../ext/imgui/imgui_impl_dx9.h"
-#include <stdexcept>
-
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(
-	HWND window,
-	UINT message,
-	WPARAM wideParam,
-	LPARAM longParam
-);
 
 // Window process
 LRESULT CALLBACK WindowProcess(
@@ -293,55 +288,18 @@ void gui::DestoryMenu() noexcept
 
 void SkinsTab()
 {
-	// PLACEHOLDERS
-	static bool StatTrak = false;
-	static char nameTag[256];
-	static auto weaponWear = 0.000f;
-	static int weaponSeed = 0;
-
-	static const char* knifeItems[]
-	{
-		"Default T",
-		"Default CT",
-		"Bayonet",
-		"M9 Bayonet",
-		"Butterfly",
-		"Falchion",
-		"Flip",
-		"Gut",
-		"Huntsman",
-		"Karambit",
-		"Navaja",
-		"Nomad",
-		"Paracord",
-		"Shadow Daggers",
-		"Skeleton",
-		"Stiletto",
-		"Survival",
-		"Talon",
-		"Ursus",
-	};
-	static int knifeSelected = 0;
-
 	ImGui::Text("Wear");
-	ImGui::SliderFloat("##Wear", &weaponWear, 0.000f, 1.000f);
+	ImGui::SliderFloat("##Wear", &cheatVars::skins.weaponWear, 0.000f, 1.000f);
 
 	ImGui::Text("Seed");
-	ImGui::InputInt("##Seed", &weaponSeed);
-
-	ImGui::Checkbox("Stat-Trak", &StatTrak);
+	ImGui::InputInt("##Seed", &cheatVars::skins.weaponSeed);
 
 	ImGui::Text("Name-Tag");
-	ImGui::InputText("##NameTag", nameTag, 256);
+	ImGui::InputText("##NameTag", cheatVars::skins.nameTag, 256);
 
-	ImGui::NewLine();
-	ImGui::NewLine();
+	ImGui::Checkbox("Stat-Trak", &cheatVars::skins.statTrak);
 
-	if (ImGui::BeginChild(1))
-	{
-		ImGui::ListBox("##knifeSelection", &knifeSelected, knifeItems, 19, 7);
-		ImGui::EndChild();
-	}
+	ImGui::Button("Apply", ImVec2(45, 25));
 }
 
 void gui::Render() noexcept
@@ -359,6 +317,13 @@ void gui::Render() noexcept
 	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(
+	HWND window,
+	UINT message,
+	WPARAM wideParam,
+	LPARAM longParam
+);
+
 LRESULT CALLBACK WindowProcess(
 	HWND window,
 	UINT message,
@@ -371,17 +336,12 @@ LRESULT CALLBACK WindowProcess(
 		gui::open = !gui::open;
 
 	// Pass messages to imgui 
-	if (gui::open)
-	{
-		ImGui_ImplWin32_WndProcHandler(
-			window,
-			message,
-			wideParam,
-			longParam
-		);
-
-		return 1L;
-	}
+	if (gui::open && ImGui_ImplWin32_WndProcHandler(
+		window,
+		message,
+		wideParam,
+		longParam
+	)) return 1L;
 
 	return CallWindowProc(
 		gui::orgWindowProcess,

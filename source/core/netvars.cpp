@@ -1,7 +1,8 @@
+#include <format>
+
 #include "../headers/utility/netvars.h"
 #include "../headers/interface.h"
 
-#include <format>
 
 void netvars::Setup() noexcept
 {

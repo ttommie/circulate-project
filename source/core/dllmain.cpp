@@ -8,6 +8,7 @@
 // Setup Function
 void Setup(const HMODULE instance)
 {
+	FILE* file;
 	try
 	{
 		mem::Setup();
@@ -15,6 +16,9 @@ void Setup(const HMODULE instance)
 		netvars::Setup();
 		gui::Setup();
 		hooks::Setup();
+
+		AllocConsole();
+		freopen_s(&file, "CONOUT$", "w", stdout);
 	}
 	catch (const std::exception& error)
 	{
@@ -31,6 +35,10 @@ void Setup(const HMODULE instance)
 
 	while (!GetAsyncKeyState(VK_END))
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	if (file)
+		fclose(file);
+
+	FreeConsole();
 
 UNLOAD:
 	hooks::Destroy();

@@ -14,4 +14,9 @@ public:
 	{
 		return mem::Call<bool>(this, 26);
 	}
+
+	constexpr void SetViewAngles(const CVector& viewAngles) noexcept
+	{
+		mem::Call<void, const CVector&>(this, 19, viewAngles);
+	}
 };

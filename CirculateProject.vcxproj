@@ -158,6 +158,8 @@
     <ClInclude Include="ext\minhook\minhook.h" />
     <ClInclude Include="ext\minhook\trampoline.h" />
     <ClInclude Include="source\core\features\radar.h" />
+    <ClInclude Include="source\core\features\skins.h" />
+    <ClInclude Include="source\core\features\vars.h" />
     <ClInclude Include="source\headers\globals.h" />
     <ClInclude Include="source\headers\gui.h" />
     <ClInclude Include="source\headers\hooks.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="source\headers\utility\hash.h" />
     <ClInclude Include="source\headers\utility\mem.h" />
     <ClInclude Include="source\headers\utility\netvars.h" />
+    <ClInclude Include="source\headers\utility\vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ext\imgui\imgui.cpp" />
@@ -187,6 +190,7 @@
     <ClCompile Include="ext\minhook\hde\hde64.c" />
     <ClCompile Include="ext\minhook\hook.c" />
     <ClCompile Include="ext\minhook\trampoline.c" />
+    <ClCompile Include="source\core\features\skins.cpp" />
     <ClCompile Include="source\core\globals.cpp" />
     <ClCompile Include="source\core\gui.cpp" />
     <ClCompile Include="source\core\hooks.cpp" />

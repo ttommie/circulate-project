@@ -1,10 +1,10 @@
 #define WIN32_LEAN_AND_MEAN
 
-#include "../headers/interface.h"
-
 #include <Windows.h>
 #include <stdexcept>
 #include <format>
+
+#include "../headers/interface.h"
 
 void interfaces::Setup() noexcept
 {
@@ -13,6 +13,10 @@ void interfaces::Setup() noexcept
 	entityList = GetInterface<IClientEntityList>("client.dll", "VClientEntityList003");
 	clientMode = **reinterpret_cast<IClientModeShared***>((*reinterpret_cast<unsigned int**>(baseClient))[10] + 5);
 	engine = GetInterface<IVEngineClient>("engine.dll", "VEngineClient014");
+
+	if (const HINSTANCE handle = GetModuleHandle("vstdlib.dll"))
+		// set our pointer by calling the function
+		keyValuesSystem = reinterpret_cast<void* (__cdecl*)()>(GetProcAddress(handle, "KeyValuesSystem"))();
 }
 
 // Help: https://www.youtube.com/watch?v=C0wGdwnaArA
